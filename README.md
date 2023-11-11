@@ -39,64 +39,7 @@ Snarky-ML
 ├── tsconfig.json
 ├── .gitignore
 │
-├── src
-│   ├── index.ts
-│   ├── libs
-│   │   ├── argMax.ts
-│   │   ├── averagePooling2D.ts
-│   │   ├── batchNormalization2D.ts
-│   │   ├── conv1D.ts
-│   │   ├── conv2D.ts
-│   │   ├── dense.ts
-│   │   ├── flatten2D.ts
-│   │   ├── maxPooling2D.ts
-│   │   ├── poly.ts
-│   │   └── relu.ts
-│   │
-│   └── models
-│       ├── decisionTree.ts
-│       ├── linearRegression.ts
-│       ├── kNN.ts
-│       ├── randomForest.ts
-│       └── neuralNetwork.ts
-│
-├── test
-│   ├── libs
-│   │   ├── argMax.test.ts
-│   │   ├── averagePooling2D.test.ts
-│   │   ├── batchNormalization2D.test.ts
-│   │   ├── conv1D.test.ts
-│   │   ├── conv2D.test.ts
-│   │   ├── dense.test.ts
-│   │   ├── flatten2D.test.ts
-│   │   ├── maxPooling2D.test.ts
-│   │   ├── poly.test.ts
-│   │   └── relu.test.ts
-│   │
-│   └── models
-│       ├── decisionTree.test.ts
-│       ├── linearRegression.test.ts
-│       ├── kNN.test.ts
-│       ├── randomForest.test.ts
-│       └── neuralNetwork.test.ts
-│
-└── docs
-    ├── gettingStarted.md
-    ├── apiReference.md
-    ├── tutorials
-    │   ├── tutorial1.md
-    │   ├── tutorial2.md
-    │   ├── ...
-    │
-    └── videos
-        ├── video1
-        ├── video2
-        ├── ...
- 
 
-Snarky-ML: The root of your project.
-
-README.md, package.json, tsconfig.json, .gitignore: These files are in the root directory.
 src: This directory contains the source code for your project.
 
 index.ts: This is the entry point for the application.
