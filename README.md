@@ -30,16 +30,6 @@ The project will also include comprehensive documentation, tutorials, and video 
 
 A potential extension of the project includes exploring the design and implementation of a translator from generic model files, such as ONNX files, to SnarkyJS.
 
-Here is the structure for the project:
-
-Snarky-ML
-│
-├── README.md
-├── package.json
-├── tsconfig.json
-├── .gitignore
-│
-
 src: This directory contains the source code for your project.
 
 index.ts: This is the entry point for the application.
