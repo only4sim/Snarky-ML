@@ -1,4 +1,32 @@
-function relu(input) {
-    // If input is greater than or equal to zero, return input; otherwise, return zero.
-    return input.greaterThanOrEqual(0).ifElse(input, new Field(0));
-}
+import {
+    Field,
+    Mina,
+    PrivateKey,
+    AccountUpdate,
+    SelfProof,
+    ZkProgram,
+    Struct,
+    Bool,
+    Circuit,
+    Poseidon,
+    MerkleMap,
+    MerkleTree,
+    MerkleWitness,
+    MerkleMapWitness,
+    verify,
+    Provable,
+  } from 'o1js';
+
+const Relu = ZkProgram({
+    name: 'Relu',
+    publicOutput: Field,
+  methods: {
+    argMax: {
+      privateInputs: [Field],
+
+      method(input): Field {
+        return Provable.if(input.greaterThan(Field(0)), input , Field(0));
+    },
+  },
+},
+});
