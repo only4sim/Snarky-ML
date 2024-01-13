@@ -1,36 +1,66 @@
-import { conv2D } from './conv2D'; // Import your conv2D function from your implementation file
+import { Field } from 'o1js';
+import { conv2D } from '../src/libs/conv2D.js';
 
-describe('conv2D', () => {
-    it('should perform 2D convolution correctly', () => {
-        // Define input, kernel, stride, and expected output
+describe('conv2D function', () => {
+    it('performs convolution correctly with no padding', () => {
         const input = [
-            [1, 2, 3],
-            [4, 5, 6],
-            [7, 8, 9]
+            [new Field(1), new Field(2), new Field(3)],
+            [new Field(4), new Field(5), new Field(6)],
+            [new Field(7), new Field(8), new Field(9)]
         ];
-
         const kernel = [
-            [0.5, 0.5],
-            [0.5, 0.5]
+            [new Field(1), new Field(0)],
+            [new Field(0), new Field(-1)]
         ];
-
-        const stride = [1, 1];
-
-        const expectedOutput = [
-            [4.5, 7.5],
-            [13.5, 16.5]
-        ];
-
-        // Convert input and kernel to Fields (assuming you have a way to represent arrays as Fields)
-        const inputField = ...; // Convert input to a Field
-        const kernelField = ...; // Convert kernel to a Field
-
-        // Call the conv2D function
-        const result = conv2D(inputField, kernelField, stride);
-
-        // Assert that the result matches the expected output
-        expect(result).toEqual(expectedOutput);
+        const stride = 1;
+        const padding = 'valid';
+        const result = conv2D(input, kernel, stride, padding);
+        const expected = [
+            [new Field(-4), new Field(-4)],
+            [new Field(-4), new Field(-4)]
+        ]; // Convolution result
+        expect(result).toEqual(expected);
     });
 
-    // Add more test cases as needed
+    it('performs convolution correctly with same padding', () => {
+        const input = [
+            [new Field(1), new Field(2), new Field(3)],
+            [new Field(4), new Field(5), new Field(6)],
+            [new Field(7), new Field(8), new Field(9)]
+        ];
+        const kernel = [
+            [new Field(1), new Field(0)],
+            [new Field(0), new Field(-1)]
+        ];
+        const stride = 1;
+        const padding = 'same';
+        const result = conv2D(input, kernel, stride, padding);
+        const expected = [
+            [new Field(-3), new Field(-4), new Field(-1)],
+            [new Field(-4), new Field(-4), new Field(-4)],
+            [new Field(3), new Field(4), new Field(1)]
+        ]; // Convolution result
+        expect(result).toEqual(expected);
+    });
+
+    it('handles different stride values correctly', () => {
+        const input = [
+            [new Field(1), new Field(2), new Field(3), new Field(4)],
+            [new Field(5), new Field(6), new Field(7), new Field(8)],
+            [new Field(9), new Field(10), new Field(11), new Field(12)],
+            [new Field(13), new Field(14), new Field(15), new Field(16)]
+        ];
+        const kernel = [
+            [new Field(1), new Field(0)],
+            [new Field(0), new Field(-1)]
+        ];
+        const stride = 2;
+        const padding = 'valid';
+        const result = conv2D(input, kernel, stride, padding);
+        const expected = [
+            [new Field(-8), new Field(-8)],
+            [new Field(-8), new Field(-8)]
+        ]; // Convolution result
+        expect(result).toEqual(expected);
+    });
 });

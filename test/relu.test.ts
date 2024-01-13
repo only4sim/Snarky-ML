@@ -1,35 +1,22 @@
-import { relu } from './relu'; // Import your relu function from your implementation file
+import { Int64, Provable } from 'o1js';
+import { relu } from '../src/libs/relu.js';
 
-describe('relu', () => {
-    it('should apply ReLU activation correctly for positive input', () => {
-        // Define input and expected output for positive input
-        const input = 3; // Positive input
-        const expectedOutput = 3; // Expected output (same as input)
-
-        // Convert input to a Field (assuming you have a way to represent numbers as Fields)
-        const inputField = ...; // Convert input to a Field
-
-        // Call the relu function
-        const result = relu(inputField);
-
-        // Assert that the result matches the expected output
-        expect(result.toNumber()).toEqual(expectedOutput);
+describe('relu function', () => {
+    it('returns the input when the input is positive', () => {
+        const input = Int64.from(5);
+        const result = relu(input);
+        expect(result).toEqual(input);
     });
 
-    it('should apply ReLU activation correctly for negative input', () => {
-        // Define input and expected output for negative input
-        const input = -2; // Negative input
-        const expectedOutput = 0; // Expected output (ReLU turns negative input to zero)
-
-        // Convert input to a Field (assuming you have a way to represent numbers as Fields)
-        const inputField = ...; // Convert input to a Field
-
-        // Call the relu function
-        const result = relu(inputField);
-
-        // Assert that the result matches the expected output
-        expect(result.toNumber()).toEqual(expectedOutput);
+    it('returns zero when the input is zero', () => {
+        const input = Int64.zero;
+        const result = relu(input);
+        expect(result).toEqual(Int64.zero);
     });
 
-    // Add more test cases as needed
+    it('returns zero when the input is negative', () => {
+        const input = Int64.from(-3);
+        const result = relu(input);
+        expect(result).toEqual(Int64.zero);
+    });
 });

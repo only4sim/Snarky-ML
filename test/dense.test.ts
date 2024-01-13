@@ -1,28 +1,35 @@
-import { dense } from './dense'; // Import your dense function from your implementation file
+import { Field } from 'o1js';
+import { dense } from '../src/libs/dense.js';
 
-describe('dense', () => {
-    it('should perform dense layer operation correctly', () => {
-        // Define input, weights, bias, and expected output
-        const input = [1, 2, 3]; // Input vector
+describe('dense function', () => {
+    it('computes matrix-vector multiplication correctly', () => {
+        const input = [new Field(1), new Field(2), new Field(3)];
         const weights = [
-            [0.1, 0.2],
-            [0.3, 0.4],
-            [0.5, 0.6]
-        ]; // Weight matrix
-        const bias = [0.7, 0.8]; // Bias vector
-        const expectedOutput = [2.3, 3.2]; // Expected output
-
-        // Convert input, weights, and bias to Fields (assuming you have a way to represent arrays as Fields)
-        const inputField = ...; // Convert input to a Field
-        const weightsField = ...; // Convert weights to a Field
-        const biasField = ...; // Convert bias to a Field
-
-        // Call the dense function
-        const result = dense(inputField, weightsField, biasField);
-
-        // Assert that the result matches the expected output
-        expect(result.toArray()).toEqual(expectedOutput);
+            [new Field(1), new Field(4)],
+            [new Field(2), new Field(5)],
+            [new Field(3), new Field(6)]
+        ];
+        const result = dense(input, weights, null);
+        const expected = [
+            new Field(14), // 1*1 + 2*2 + 3*3
+            new Field(32)  // 1*4 + 2*5 + 3*6
+        ];
+        expect(result).toEqual(expected);
     });
 
-    // Add more test cases as needed
+    it('adds bias correctly', () => {
+        const input = [new Field(1), new Field(2), new Field(3)];
+        const weights = [
+            [new Field(1), new Field(4)],
+            [new Field(2), new Field(5)],
+            [new Field(3), new Field(6)]
+        ];
+        const bias = [new Field(1), new Field(-1)];
+        const result = dense(input, weights, bias);
+        const expected = [
+            new Field(15), // 14 + 1
+            new Field(31)  // 32 - 1
+        ];
+        expect(result).toEqual(expected);
+    });
 });

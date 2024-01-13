@@ -1,22 +1,26 @@
-import { poly } from './poly'; // Import your poly function from your implementation file
+import { Field } from 'o1js';
+import { poly } from '../src/libs/poly.js';
 
-describe('poly', () => {
-    it('should evaluate a polynomial correctly', () => {
-        // Define input, coefficients, and expected output
-        const input = 3; // Input value
-        const coefficients = [2, 1, 0.5]; // Coefficients for the polynomial 2x^2 + x + 0.5
-        const expectedOutput = 19.5; // Expected output for x=3
-
-        // Convert input and coefficients to Fields (assuming you have a way to represent numbers as Fields)
-        const inputField = ...; // Convert input to a Field
-        const coefficientsField = coefficients.map((c) => ...); // Convert coefficients to Fields
-
-        // Call the poly function
-        const result = poly(inputField, coefficientsField);
-
-        // Assert that the result matches the expected output
-        expect(result.toNumber()).toEqual(expectedOutput);
+describe('poly function', () => {
+    it('calculates constant polynomial correctly', () => {
+        let input = new Field(5);
+        let coefficients = [new Field(3)]; // 3
+        let result = poly(input, coefficients);
+        expect(result).toEqual(new Field(3));
     });
 
-    // Add more test cases as needed
+    it('calculates linear polynomial correctly', () => {
+        let input = new Field(2);
+        let coefficients = [new Field(3), new Field(4)]; // 3 + 4x
+        let result = poly(input, coefficients);
+        expect(result).toEqual(new Field(11)); // 3 + 4*2
+    });
+
+    it('calculates quadratic polynomial correctly', () => {
+        let input = new Field(3);
+        let coefficients = [new Field(1), new Field(2), new Field(3)]; // 1 + 2x + 3x^2
+        let result = poly(input, coefficients);
+        expect(result).toEqual(new Field(34)); // 1 + 2*3 + 3*3^2
+    });
 });
+

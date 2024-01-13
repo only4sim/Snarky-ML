@@ -1,25 +1,28 @@
-import { flatten2D } from './flatten2D'; // Import your flatten2D function from your implementation file
+import { Field } from 'o1js';
+import { flatten2D } from '../src/libs/flatten2D.js';
 
-describe('flatten2D', () => {
-    it('should flatten a 2D array correctly', () => {
-        // Define input, expected output, and a test case
-        const inputMatrix = [
-            [1, 2, 3],
-            [4, 5, 6],
-            [7, 8, 9]
-        ]; // Input 2D array
-
-        const expectedOutput = [1, 2, 3, 4, 5, 6, 7, 8, 9]; // Expected output 1D array
-
-        // Convert input to a Field (assuming you have a way to represent arrays as Fields)
-        const inputField = ...; // Convert inputMatrix to a Field
-
-        // Call the flatten2D function
-        const result = flatten2D(inputField);
-
-        // Assert that the result matches the expected output
-        expect(result.toArray()).toEqual(expectedOutput);
+describe('flatten2D function', () => {
+    it('flattens a 2D array into a 1D array correctly', () => {
+        const input = [
+            [new Field(1), new Field(2)],
+            [new Field(3), new Field(4)]
+        ];
+        const result = flatten2D(input);
+        const expected = [new Field(1), new Field(2), new Field(3), new Field(4)];
+        expect(result).toEqual(expected);
     });
 
-    // Add more test cases as needed
+    it('handles empty arrays correctly', () => {
+        const input: Field[][] = [];
+        const result = flatten2D(input);
+        const expected: Field[] = [];
+        expect(result).toEqual(expected);
+    });
+
+    it('handles single-element arrays correctly', () => {
+        const input = [[new Field(1)]];
+        const result = flatten2D(input);
+        const expected = [new Field(1)];
+        expect(result).toEqual(expected);
+    });
 });

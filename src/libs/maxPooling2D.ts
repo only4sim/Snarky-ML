@@ -1,28 +1,42 @@
-function maxPooling2D(input, poolSize, strides) {
-    const [inputHeight, inputWidth] = input.shape;
+
+// Can only process 2D arrays of Field elements (positive integers)
+
+import { 
+    Field,
+    Provable, 
+} from 'o1js';
+
+export const maxPooling2D = (
+    input: Field[][],
+    poolSize: number[],
+    strides: number[]
+): Field[][] => {
+    const inputHeight = input.length;
+    const inputWidth = input[0].length;
     const [poolHeight, poolWidth] = poolSize;
-    const [strideHeight, strideWidth] = strides;
-    const outputHeight = Math.floor((inputHeight - poolHeight) / strideHeight) + 1;
-    const outputWidth = Math.floor((inputWidth - poolWidth) / strideWidth) + 1;
+    const [strideY, strideX] = strides;
 
-    const output = new Field(outputHeight, outputWidth);
+    const outputHeight = Math.ceil((inputHeight - poolHeight) / strideY + 1);
+    const outputWidth = Math.ceil((inputWidth - poolWidth) / strideX + 1);
 
-    for (let i = 0; i < outputHeight; i++) {
-        for (let j = 0; j < outputWidth; j++) {
-            let maxVal = new Field(Number.NEGATIVE_INFINITY);
+    let output = Array(outputHeight).fill(0).map(() => Array(outputWidth).fill(new Field(0)));
 
-            for (let m = 0; m < poolHeight; m++) {
-                for (let n = 0; n < poolWidth; n++) {
-                    const inputY = i * strideHeight + m;
-                    const inputX = j * strideWidth + n;
-                    const value = input.get(inputY, inputX);
-                    maxVal = maxVal.max(value);
+    for (let y = 0; y < outputHeight; y++) {
+        for (let x = 0; x < outputWidth; x++) {
+            let maxVal = new Field(0);
+
+            for (let j = 0; j < poolHeight; j++) {
+                for (let i = 0; i < poolWidth; i++) {
+                    let inputY = y * strideY + j;
+                    let inputX = x * strideX + i;
+                    if (inputY < inputHeight && inputX < inputWidth) {
+                        maxVal = Provable.if(maxVal.greaterThanOrEqual(input[inputY][inputX]), maxVal, input[inputY][inputX]);
+                    }
                 }
             }
-
-            output.set(i, j, maxVal);
+            output[y][x] = maxVal;
         }
     }
 
     return output;
-}
+};
