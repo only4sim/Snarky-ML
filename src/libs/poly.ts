@@ -1,3 +1,10 @@
+// Creation Date: 2023-10-15
+// Last Update: 2023-12-30
+// Creator: only4sim
+// poly function for Snarky-ML
+// poly takes a Field and a Field array and outputs a Field.
+
+
 import {
     Field,
   } from 'o1js';

@@ -1,3 +1,9 @@
+// Creation Date: 2023-10-15
+// Last Update: 2023-12-30
+// Creator: only4sim
+// dense function for Snarky-ML
+// dense takes a Field array, a Field array array, and a Field array and outputs a Field array.
+
 import { Field } from 'o1js';
 
 export const dense = (

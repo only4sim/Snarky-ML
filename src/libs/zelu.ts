@@ -1,3 +1,9 @@
+// Creation Date: 2023-10-15
+// Last Update: 2023-12-30
+// Creator: only4sim
+// zelu function for Snarky-ML
+// zelu takes a Field and a Field and outputs a Field.
+
 import {
     Int64,
 } from 'o1js';

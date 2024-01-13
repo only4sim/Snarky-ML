@@ -1,4 +1,8 @@
-
+// Creation Date: 2023-10-15
+// Last Update: 2023-12-30
+// Creator: only4sim
+// maxPooling2D function for Snarky-ML
+// maxPooling2D takes a 2D Field array, a poolSize array, and a strides array and outputs a 2D Field array.
 // Can only process 2D arrays of Field elements (positive integers)
 
 import { 

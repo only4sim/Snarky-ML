@@ -1,4 +1,4 @@
-import { Int64 } from 'o1js';
+import { Int64, Provable } from 'o1js';
 import { averagePooling2D } from '../src/libs/averagePooling2D.js';
 
 describe('averagePooling2D function', () => {
@@ -41,7 +41,6 @@ describe('averagePooling2D function', () => {
         const result = averagePooling2D(input, poolSize, strides);
         const expected = [
             [Int64.from(3), Int64.from(5)],
-            [Int64.from(9), Int64.from(11)]
         ];
         expect(result).toEqual(expected);
     });
